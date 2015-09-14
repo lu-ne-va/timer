@@ -8,3 +8,21 @@
 ```
 git clone git@github.com:lu-ne-va/timer.git new-timer && new-timer
 ```
+
+* Установи gulp глобально:
+
+```
+npm i -g gulp
+```
+
+* Установи зависимости:
+
+```
+npm i
+```
+
+* Запусти Gulp.js:
+
+```
+gulp
+```
