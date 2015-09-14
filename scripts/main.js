@@ -1,77 +1,122 @@
-// Парсит общее кол-во секунд и возвращает объект с кол-вом дней, часов, минут, секунд ------------
-function getTimer( count, years ){
-    var timer = {};
-    timer.seconds = count % 60;
-    count = (count - timer.seconds) / 60;
-    timer.minutes = count % 60;
-    count = (count - timer.minutes) / 60;
-    timer.hours = count % 24;
-    count = (count - timer.hours) / 24;
-    timer.days = count % 7;
-    //count = (count - timer.days) / 7;
-    timer.weeks = (count - timer.days) / 7;
-    //timer.years = years;
-    return timer;
-}
+var timer = (function () {
+    /**
+     * @constant
+     * @type {number}
+     */
+    var womanPensionAge = 55;
+    /**
+     * @constant
+     * @type {number}
+     */
+    var manPensionAge = 60;
 
-// Выводит таймер на страницу ---------------------------------------------------------------------
-function showTimer( timer ){
-    $('#data-form').addClass('hidden');
-    $('#weeks').text(
-        (timer.weeks < 10 ? '0' : '') +
-        timer.weeks.toString()
-    );
-    $('#days').text(
-        (timer.days < 10 ? '0' : '') +
-        timer.days.toString()
-    );
-    $('#hours').text(
-        (timer.hours < 10 ? '0' : '') +
-        timer.hours.toString()
-    );
-    $('#minutes').text(
-        (timer.minutes < 10 ? '0' : '') +
-        timer.minutes.toString()
-    );
-    $('#seconds').text(
-        (timer.seconds < 10 ? '0' : '') +
-        timer.seconds.toString()
-    );
-    $('.timer-container').addClass('show');
-}
+    var $weeks = $('#weeks');
+    var $days = $('#days');
+    var $hours = $('#hours');
+    var $minutes = $('#minutes');
+    var $seconds = $('#seconds');
+    var $timer = $('.timer-container');
 
+    return {
+        /**
+         * Парсит общее кол-во секунд и возвращает объект с кол-вом дней, часов, минут, секунд
+         * @param count
+         * @param years
+         * @returns {{}}
+         */
+        getTimer: function (count, years) {
+            var timer = {};
+            timer.seconds = count % 60;
+            count = (count - timer.seconds) / 60;
+            timer.minutes = count % 60;
+            count = (count - timer.minutes) / 60;
+            timer.hours = count % 24;
+            count = (count - timer.hours) / 24;
+            timer.days = count % 7;
+            timer.weeks = (count - timer.days) / 7;
+            return timer;
+        },
 
-// GO-GO-GO ---------------------------------------------------------------------------------------
-var daysCounter = function(e){
-    e.preventDefault();
-    debugger;
-    var birthday = new Date($('#birthday').val());
-    var now = new Date();
-    var pensionAge = $('#sex').prop("checked") ? 55 : 60;
-    var pensionYear = birthday.getFullYear() + pensionAge;
-    var birthdayInThisYear = new Date(now.getFullYear(), birthday.getMonth(), birthday.getDate(), 0, 0, 0, 0);
-    var pensionDate = new Date(pensionYear, birthday.getMonth(), birthday.getDate(), 0, 0, 0, 0);
+        /**
+         * Выводит таймер на страницу
+         * @param timer
+         */
+        showTimer: function (timer) {
+            $weeks.text(
+                (timer.weeks < 1000 ? '0' : '') +
+                (timer.weeks < 100 ? '0' : '') +
+                (timer.weeks < 10 ? '0' : '') +
+                timer.weeks.toString()
+            );
+            $days.text(
+                (timer.days < 10 ? '0' : '') +
+                timer.days.toString()
+            );
+            $hours.text(
+                (timer.hours < 10 ? '0' : '') +
+                timer.hours.toString()
+            );
+            $minutes.text(
+                (timer.minutes < 10 ? '0' : '') +
+                timer.minutes.toString()
+            );
+            $seconds.text(
+                (timer.seconds < 10 ? '0' : '') +
+                timer.seconds.toString()
+            );
+            $timer.addClass('show');
+        },
 
-    var counter = pensionDate.getTime() - now.getTime();             // Кол-во милисекунд до пенсии
-    var timeout = counter % 1000;                                    // Милисекунды до синхронного вывода целых секунд
-    counter = (counter - timeout) / 1000;                            // Кол-во секунд до дня рождения в текущем году
-    var yearsTillPension = pensionYear - now.getFullYear();          // Лет до пенсии
+        /**
+         * GO-GO-GO
+         * @param e
+         */
+        daysCounter: function (e) {
+            e.preventDefault();
+            var $successText = $('#success-text');
+            var $form = $('#data-form');
 
-    showTimer(getTimer(counter + 1, yearsTillPension));              // Вывод ближайшей целой секунды
-    setTimeout(function(){
-        showTimer(getTimer(counter,  yearsTillPension));             // Синхронный вывод 1-й целой секунды
-        var intervalID = setInterval(function(){
-            counter--;
-            if( counter > 0 ){
-                showTimer(getTimer(counter, yearsTillPension));      // Синхронный вывод n-й целой секунды
-            }else{
-                clearInterval(intervalID);
-                $('#timer').text('Ура!!!');
+            //Сохраняем день рождения из формы
+            var birthday = new Date($('#birthday').val());
+            var now = new Date();
+            //В зависимости от пола определяем пенсионный возраст
+            var pensionAge = $('#sex').prop("checked") ? womanPensionAge : manPensionAge;
+            //Определяем год выхода на пенсию
+            var pensionYear = birthday.getFullYear() + pensionAge;
+            //Определяем дату выхода на пенсию
+            var pensionDate = new Date(pensionYear, birthday.getMonth(), birthday.getDate(), 0, 0, 0, 0);
+
+            // Кол-во милисекунд до пенсии
+            var counter = pensionDate - now;
+            // Милисекунды до синхронного вывода целых секунд
+            var timeout = counter % 1000;
+            // Кол-во секунд до пенсии
+            counter = (counter - timeout) / 1000;
+            // Лет до пенсии
+            var yearsTillPension = pensionYear - now.getFullYear();
+
+            if (counter > 0) {
+                $form.addClass('hidden');
+                // Синхронный вывод 1-й целой секунды
+                timer.showTimer(timer.getTimer(counter, yearsTillPension));
+                var intervalID = setInterval(function () {
+                    counter--;
+                    if (counter > 0) {
+                        // Синхронный вывод n-й целой секунды
+                        timer.showTimer(timer.getTimer(counter, yearsTillPension));
+                    } else {
+                        clearInterval(intervalID);
+                        $successText.addClass('show');
+                        $timer.removeClass('show');
+                    }
+                }, 1000);
+            } else {
+                $successText.addClass('show');
+                $form.addClass('hidden');
             }
-        }, 1000);
-    }, timeout);
+        }
+    }
+})();
 
-};
 
-
-$('#data-form').on('submit', daysCounter);
+$('#data-form').on('submit', timer.daysCounter);
