@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../jquery-ui-1.11.4.custom/jquery-ui.min.css">
     <link rel="stylesheet" href="main.css">
-    <title></title>
+    <title>Таймер обратного отсчета</title>
 </head>
 <body>
 <div class="timer-container">
@@ -31,8 +32,8 @@
 
 <form class="form" action='' id="data-form">
     <div class="input-group">
-        <label class="input-label" for='birthday'>Введите дату своего рождения</label>
-        <input class="input" id='birthday' type="date" required>
+        <label class="input-label" for='datepicker'>Введите дату своего рождения</label>
+        <input class="input" id='datepicker' type="text" required>
     </div>
     <div class="input-group switch">
         <span class="input-label">Выберите свой пол</span>
@@ -46,6 +47,7 @@
     <button class="btn" type="submit">Посчитать!</button>
 </form>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="../jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

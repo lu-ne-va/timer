@@ -1,3 +1,14 @@
+/**
+ * Инициализация datapicker jquery ui
+ */
+$(function() {
+    $( "#datepicker" ).datepicker({
+        yearRange: "1982:1996",
+        changeMonth: true,
+        changeYear: true
+    });
+});
+
 var timer = (function () {
     /**
      * @constant
