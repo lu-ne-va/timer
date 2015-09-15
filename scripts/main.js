@@ -3,7 +3,7 @@
  */
 $(function() {
     $( "#datepicker" ).datepicker({
-        yearRange: "1982:1996",
+        yearRange: "1920:2015",
         changeMonth: true,
         changeYear: true
     });
@@ -84,11 +84,12 @@ var timer = (function () {
          */
         daysCounter: function (e) {
             e.preventDefault();
+            debugger;
             var $successText = $('#success-text');
             var $form = $('#data-form');
 
             //Сохраняем день рождения из формы
-            var birthday = new Date($('#birthday').val());
+            var birthday = new Date($('#datepicker').val());
             var now = new Date();
             //В зависимости от пола определяем пенсионный возраст
             var pensionAge = $('#sex').prop("checked") ? womanPensionAge : manPensionAge;

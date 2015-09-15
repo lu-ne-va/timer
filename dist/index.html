@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../jquery-ui-1.11.4.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="jquery-ui.css">
     <link rel="stylesheet" href="main.css">
     <title>Таймер обратного отсчета</title>
 </head>
 <body>
 <div class="timer-container">
+    <span class="timer-text-phrase">До пенсии осталось</span>
     <div class="timer">
         <span id="weeks"></span>
         <span>:</span>
@@ -26,7 +27,6 @@
         <span class="timer-text">Минут</span>
         <span class="timer-text">Секунд</span>
     </div>
-    <span class="timer-text-phrase">Осталось до наступления пенсионного возраста</span>
 </div>
 <div id="success-text" class="success-text">Ура!!!! Пенсия</div>
 
@@ -47,7 +47,7 @@
     <button class="btn" type="submit">Посчитать!</button>
 </form>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="../jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+<script src="jquery-ui.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
