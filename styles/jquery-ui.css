@@ -81,7 +81,8 @@
 	height: 100%;
 }
 .ui-datepicker {
-	width: 17em;
+	/*width: 17em;*/
+	width: 68%;
 	/*padding: .2em .2em 0;*/
 	display: none;
 }
@@ -138,7 +139,8 @@
 }
 .ui-datepicker table {
 	width: 100%;
-	font-size: .9em;
+	/*font-size: .9em;*/
+    font-size: 3vw;
 	border-collapse: collapse;
 	margin: 0 0 .4em;
 }
@@ -286,9 +288,12 @@
 	/*border: 1px solid rgba(41, 128, 185, 0.68);*/
 	/*background-color: rgba(41, 128, 185, 0.36);*/
 	/*background: #dfeffc url("images/ui-bg_glass_85_dfeffc_1x400.png") 50% 50% repeat-x;*/
-	font-weight: 400;
-    padding: .75rem 0;
-    color: #2980B9;
+	/*font-weight: 400;*/
+    /*padding: .75rem 0;*/
+    /*color: #2980B9;*/
+	font-weight: 200;
+	padding: 0.5rem 0;
+	color: #2980B9;
 }
 .ui-state-default a,
 .ui-state-default a:link,
